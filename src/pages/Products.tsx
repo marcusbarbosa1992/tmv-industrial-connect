@@ -2,64 +2,87 @@
 import { useState } from "react";
 import Layout from "../components/Layout";
 import { Search } from "lucide-react";
+import { toast } from "@/components/ui/use-toast";
 
-// Sample product data - would be replaced with actual data from CMS/API
+// Updated product data with the new information provided by the client
 const initialProducts = [
   {
     id: 1,
-    name: "Sensor de Proximidade Indutivo",
+    name: "Conector Pneumatico Engate Rapido",
     category: "Sensores e Atuadores",
-    description: "Sensor para detecção de objetos metálicos sem contato físico.",
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3"
+    description: "Um conector pneumatico engate rapido é um componente usado em sistemas pneumáticos para conectar e desconectar rapidamente linhas de ar comprimido sem a necessidade de ferramentas. Esse tipo de conector facilita a manutenção, as mudanças de configuração e o gerenciamento de linhas pneumáticas, proporcionando uma conexão segura e eficaz.",
+    image: "https://www.jrgs.com.br/imagens/conexao-em-latao/conexao-em-latao.webp",
+    specs: [
+      "Instalação Rápida e Simples: Permite conexões rápidas e eficientes",
+      "Resistência à Corrosão: Altamente resistente à oxidação e corrosão",
+      "Versatilidade: Utilizável em ampla gama de temperaturas e condições",
+      "Facilidade de Uso: Conexões simplificadas sem ferramentas"
+    ]
   },
   {
     id: 2,
-    name: "Controlador Lógico Programável",
+    name: "Conexões em Latão",
     category: "Controladores",
-    description: "Controlador robusto para automação de processos industriais.",
-    image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3"
+    description: "Conexões em latão são componentes metálicos de alta qualidade usados em sistemas hidráulicos, pneumáticos e de fluidos para conectar tubulações. O latão é amplamente utilizado por sua resistência à corrosão, durabilidade e excelente condutividade térmica e elétrica.",
+    image: "https://www.jrgs.com.br/imagens/conexao-em-latao/conexao-em-latao.webp",
+    specs: [
+      "Resistência à Corrosão: Altamente resistente à oxidação",
+      "Versatilidade: Utilizável em diversas temperaturas",
+      "Condutividade: Boa condutividade térmica e elétrica",
+      "Facilidade de Usinagem: Fácil de trabalhar em várias formas"
+    ]
   },
   {
     id: 3,
-    name: "Câmera de Inspeção Visual",
+    name: "Conexões em Latão",
     category: "Sistemas de Visão",
-    description: "Sistema de visão para controle de qualidade em linhas de produção.",
-    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3"
+    description: "Conexões em latão são componentes metálicos premium usados para conectar tubulações em diversos sistemas. Estas peças são fabricadas com liga de cobre e zinco, oferecendo excelente resistência, durabilidade e vedação.",
+    image: "https://www.jrgs.com.br/imagens/conexao-em-latao/conexao-em-latao.webp",
+    specs: [
+      "Compatibilidade: Excelente para uso com diversos materiais",
+      "Durabilidade: Longa vida útil mesmo em condições adversas",
+      "Precisão: Fabricação com tolerâncias precisas",
+      "Versatilidade: Disponível em diversos formatos e tamanhos"
+    ]
   },
   {
     id: 4,
-    name: "Cortina de Luz de Segurança",
+    name: "Conexões Instantâneas em Plástico",
     category: "Equipamentos de Segurança",
-    description: "Barreira de proteção para áreas de risco em ambientes industriais.",
-    image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3"
+    description: "Conexões instantâneas em plástico são componentes utilizados para conectar rapidamente tubulações em sistemas pneumáticos, hidráulicos ou de água sem necessidade de ferramentas. Estas conexões são feitas de materiais plásticos duráveis, como polietileno, PVC ou PTFE, e são projetadas para oferecer uma instalação e desconexão simplificada.",
+    image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
+    specs: [
+      "Material Durável: Fabricadas em plásticos resistentes",
+      "Instalação Fácil: Sistema de engate rápido sem ferramentas",
+      "Economia: Solução de custo-benefício para sistemas de tubulação",
+      "Versatilidade: Compatível com diferentes tipos de tubos"
+    ]
   },
   {
     id: 5,
-    name: "Sensor Fotoelétrico",
+    name: "Atuadores Pneumáticos",
     category: "Sensores e Atuadores",
-    description: "Sensor para detecção de objetos através de feixe de luz.",
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3"
+    description: "O atuador pneumático é um dispositivo utilizado para converter energia do ar comprimido em movimento mecânico. Estes atuadores são uma parte fundamental dos sistemas automatizados, especialmente em ambientes industriais onde a confiabilidade e a rapidez são essenciais.",
+    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
+    specs: [
+      "Movimento Controlado: Precisão no posicionamento",
+      "Velocidade: Operação rápida em comparação com outros sistemas",
+      "Confiabilidade: Funcionamento consistente em ambientes industriais",
+      "Segurança: Operação segura em ambientes potencialmente explosivos"
+    ]
   },
   {
     id: 6,
-    name: "IHM Touch Screen",
+    name: "Válvulas Solenóides",
     category: "Controladores",
-    description: "Interface homem-máquina com tela touchscreen para controle de processos.",
-    image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3"
-  },
-  {
-    id: 7,
-    name: "Leitor de Código de Barras Industrial",
-    category: "Sistemas de Visão",
-    description: "Sistema de leitura de códigos de barras e QR para rastreabilidade.",
-    image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3"
-  },
-  {
-    id: 8,
-    name: "Botão de Emergência",
-    category: "Equipamentos de Segurança",
-    description: "Dispositivo para interrupção imediata de operações em caso de emergência.",
-    image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3"
+    description: "Válvulas solenóides são dispositivos eletromecânicos utilizados para controlar o fluxo de líquidos ou gases em sistemas industriais. Funcionam através da ação de um campo magnético gerado por uma bobina, permitindo automação e controle preciso do fluxo.",
+    image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
+    specs: [
+      "Controle Automatizado: Integração fácil com sistemas de controle",
+      "Resposta Rápida: Acionamento e desligamento quase instantâneos",
+      "Versatilidade: Disponível para diferentes pressões e temperaturas",
+      "Durabilidade: Construção robusta para ambientes industriais"
+    ]
   }
 ];
 
@@ -80,12 +103,16 @@ const ProductCard = ({ product, onView }: { product: any, onView: (product: any)
           src={product.image}
           alt={product.name}
           className="w-full h-full object-cover"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.src = "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3";
+          }}
         />
       </div>
       <div className="p-6">
         <span className="text-sm font-medium text-tmv-blue mb-2 block">{product.category}</span>
         <h3 className="text-xl font-semibold mb-2">{product.name}</h3>
-        <p className="text-gray-600 mb-4">{product.description}</p>
+        <p className="text-gray-600 mb-4 line-clamp-3">{product.description}</p>
         <button
           onClick={() => onView(product)}
           className="tmv-button-outline"
@@ -99,6 +126,13 @@ const ProductCard = ({ product, onView }: { product: any, onView: (product: any)
 
 const ProductDetailModal = ({ product, onClose }: { product: any, onClose: () => void }) => {
   if (!product) return null;
+
+  const handleRequestQuote = () => {
+    toast({
+      title: "Solicitação de Orçamento",
+      description: `Orçamento para ${product.name} foi solicitado com sucesso!`,
+    });
+  };
   
   return (
     <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
@@ -116,7 +150,11 @@ const ProductDetailModal = ({ product, onClose }: { product: any, onClose: () =>
             <img 
               src={product.image} 
               alt={product.name} 
-              className="w-full h-full object-cover" 
+              className="w-full h-full object-cover"
+              onError={(e) => {
+                const target = e.target as HTMLImageElement;
+                target.src = "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3";
+              }}
             />
           </div>
         </div>
@@ -126,19 +164,21 @@ const ProductDetailModal = ({ product, onClose }: { product: any, onClose: () =>
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-2">Descrição</h3>
             <p className="text-gray-700">{product.description}</p>
-            <p className="mt-4 text-gray-700">
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla quam velit, vulputate eu pharetra nec, mattis ac neque.
-              Duis vulputate commodo lectus, ac blandit elit tincidunt id. Sed rhoncus, tortor sed eleifend tristique.
-            </p>
           </div>
           
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-2">Especificações Técnicas</h3>
             <ul className="list-disc list-inside text-gray-700">
-              <li>Especificação 1: Valor</li>
-              <li>Especificação 2: Valor</li>
-              <li>Especificação 3: Valor</li>
-              <li>Especificação 4: Valor</li>
+              {product.specs ? product.specs.map((spec: string, index: number) => (
+                <li key={index}>{spec}</li>
+              )) : (
+                <>
+                  <li>Especificação 1: Valor</li>
+                  <li>Especificação 2: Valor</li>
+                  <li>Especificação 3: Valor</li>
+                  <li>Especificação 4: Valor</li>
+                </>
+              )}
             </ul>
           </div>
 
@@ -146,9 +186,12 @@ const ProductDetailModal = ({ product, onClose }: { product: any, onClose: () =>
             <button onClick={onClose} className="text-gray-600 hover:text-gray-800">
               Fechar
             </button>
-            <a href="/contato" className="tmv-button">
+            <button 
+              onClick={handleRequestQuote} 
+              className="tmv-button"
+            >
               Solicitar Orçamento
-            </a>
+            </button>
           </div>
         </div>
       </div>
