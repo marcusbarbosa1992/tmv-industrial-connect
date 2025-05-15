@@ -9,6 +9,7 @@ import About from "./pages/About";
 import Products from "./pages/Products";
 import Contact from "./pages/Contact";
 import NotFound from "./pages/NotFound";
+import WhatsAppButton from "./components/WhatsAppButton";
 
 const queryClient = new QueryClient();
 
@@ -25,6 +26,7 @@ const App = () => (
           <Route path="/contato" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <WhatsAppButton phoneNumber="5511999999999" />
       </BrowserRouter>
     </TooltipProvider>
   </QueryClientProvider>
