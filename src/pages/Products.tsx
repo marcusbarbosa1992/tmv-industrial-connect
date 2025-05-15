@@ -1,17 +1,18 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Layout from "../components/Layout";
 import { Search } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
+import { useSearchParams } from "react-router-dom";
 
-// Updated product data with the new information provided by the client
+// Use the same product data as in ProductCategories
 const initialProducts = [
   {
     id: 1,
     name: "Conector Pneumatico Engate Rapido",
     category: "Sensores e Atuadores",
     description: "Um conector pneumatico engate rapido é um componente usado em sistemas pneumáticos para conectar e desconectar rapidamente linhas de ar comprimido sem a necessidade de ferramentas. Esse tipo de conector facilita a manutenção, as mudanças de configuração e o gerenciamento de linhas pneumáticas, proporcionando uma conexão segura e eficaz.",
-    image: "https://www.jrgs.com.br/imagens/conexao-em-latao/conexao-em-latao.webp",
+    image: "https://www.jrgs.com.br/imagens/conector-pneumatico-engate-rapido/conector-pneumatico-engate-rapido.webp",
     specs: [
       "Instalação Rápida e Simples: Permite conexões rápidas e eficientes",
       "Resistência à Corrosão: Altamente resistente à oxidação e corrosão",
@@ -21,10 +22,10 @@ const initialProducts = [
   },
   {
     id: 2,
-    name: "Conexões em Latão",
-    category: "Controladores",
-    description: "Conexões em latão são componentes metálicos de alta qualidade usados em sistemas hidráulicos, pneumáticos e de fluidos para conectar tubulações. O latão é amplamente utilizado por sua resistência à corrosão, durabilidade e excelente condutividade térmica e elétrica.",
-    image: "https://www.jrgs.com.br/imagens/conexao-em-latao/conexao-em-latao.webp",
+    name: "Conexao Instantanea Reta de Latao",
+    category: "Conexões",
+    description: "A conexao instantanea reta de latao é um tipo de conector rápido usado em sistemas pneumáticos e hidráulicos para unir tubos ou mangueiras de forma rápida e segura. Fabricada em latão, oferece durabilidade e resistência à corrosão.",
+    image: "https://www.jrgs.com.br/imagens/conexao-instantanea-reta-de-latao/conexao-instantanea-reta-de-latao.webp",
     specs: [
       "Resistência à Corrosão: Altamente resistente à oxidação",
       "Versatilidade: Utilizável em diversas temperaturas",
@@ -34,9 +35,9 @@ const initialProducts = [
   },
   {
     id: 3,
-    name: "Conexões em Latão",
-    category: "Sistemas de Visão",
-    description: "Conexões em latão são componentes metálicos premium usados para conectar tubulações em diversos sistemas. Estas peças são fabricadas com liga de cobre e zinco, oferecendo excelente resistência, durabilidade e vedação.",
+    name: "Conexao em Latao",
+    category: "Conexões",
+    description: "A conexao em latao é um componente usado em sistemas pneumáticos e hidráulicos para conectar diferentes seções de tubulação ou mangueira. Fabricada em latão, oferece durabilidade excepcional.",
     image: "https://www.jrgs.com.br/imagens/conexao-em-latao/conexao-em-latao.webp",
     specs: [
       "Compatibilidade: Excelente para uso com diversos materiais",
@@ -48,9 +49,9 @@ const initialProducts = [
   {
     id: 4,
     name: "Conexões Instantâneas em Plástico",
-    category: "Equipamentos de Segurança",
-    description: "Conexões instantâneas em plástico são componentes utilizados para conectar rapidamente tubulações em sistemas pneumáticos, hidráulicos ou de água sem necessidade de ferramentas. Estas conexões são feitas de materiais plásticos duráveis, como polietileno, PVC ou PTFE, e são projetadas para oferecer uma instalação e desconexão simplificada.",
-    image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
+    category: "Conexões",
+    description: "Conexões instantâneas em plástico são componentes utilizados para conectar rapidamente tubulações em sistemas pneumáticos, hidráulicos ou de água sem necessidade de ferramentas.",
+    image: "https://www.jrgs.com.br/imagens/conexoes-instantaneas-em-plastico/conexoes-instantaneas-em-plastico.webp",
     specs: [
       "Material Durável: Fabricadas em plásticos resistentes",
       "Instalação Fácil: Sistema de engate rápido sem ferramentas",
@@ -60,10 +61,36 @@ const initialProducts = [
   },
   {
     id: 5,
-    name: "Atuadores Pneumáticos",
-    category: "Sensores e Atuadores",
-    description: "O atuador pneumático é um dispositivo utilizado para converter energia do ar comprimido em movimento mecânico. Estes atuadores são uma parte fundamental dos sistemas automatizados, especialmente em ambientes industriais onde a confiabilidade e a rapidez são essenciais.",
-    image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
+    name: "Conexões Pneumáticas Metálicas",
+    category: "Conexões",
+    description: "As conexões pneumáticas metálicas são componentes robustos usados em sistemas de ar comprimido para unir tubulações, mangueiras e equipamentos.",
+    image: "https://www.jrgs.com.br/imagens/conexoes-pneumaticas-metalicas/conexoes-pneumaticas-metalicas.webp",
+    specs: [
+      "Alta Resistência: Suporta pressões elevadas",
+      "Durabilidade Superior: Material resistente para uso prolongado",
+      "Vedação Perfeita: Minimiza riscos de vazamentos",
+      "Compatibilidade: Para diversos sistemas industriais"
+    ]
+  },
+  {
+    id: 6,
+    name: "Atuador Elétrico",
+    category: "Atuadores",
+    description: "Um atuador elétrico é um dispositivo mecânico usado para converter energia elétrica em movimento mecânico. Este tipo de atuador é amplamente utilizado em processos industriais automatizados.",
+    image: "https://www.jrgs.com.br/imagens/atuador-eletrico/atuador-eletrico.webp",
+    specs: [
+      "Precisão: Controle exato de posicionamento",
+      "Eficiência Energética: Baixo consumo de energia",
+      "Controle Avançado: Integração facilitada com sistemas de controle",
+      "Manutenção Reduzida: Maior tempo entre intervenções"
+    ]
+  },
+  {
+    id: 7,
+    name: "Atuador Pneumático",
+    category: "Atuadores",
+    description: "Um atuador pneumático é um dispositivo utilizado para converter energia do ar comprimido em movimento mecânico. Estes atuadores são uma parte fundamental dos sistemas automatizados industriais.",
+    image: "https://www.jrgs.com.br/imagens/atuador-pneumatico/atuador-pneumatico.webp",
     specs: [
       "Movimento Controlado: Precisão no posicionamento",
       "Velocidade: Operação rápida em comparação com outros sistemas",
@@ -72,28 +99,22 @@ const initialProducts = [
     ]
   },
   {
-    id: 6,
-    name: "Válvulas Solenóides",
-    category: "Controladores",
-    description: "Válvulas solenóides são dispositivos eletromecânicos utilizados para controlar o fluxo de líquidos ou gases em sistemas industriais. Funcionam através da ação de um campo magnético gerado por uma bobina, permitindo automação e controle preciso do fluxo.",
-    image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
+    id: 8,
+    name: "Cilindro Perfilado",
+    category: "Cilindros",
+    description: "O cilindro perfilado é um tipo de cilindro pneumático que se caracteriza por ter um corpo com perfil extrudado, geralmente em alumínio, oferecendo excelente relação peso-resistência.",
+    image: "https://www.jrgs.com.br/imagens/cilindro-perfilado/cilindro-perfilado.webp",
     specs: [
-      "Controle Automatizado: Integração fácil com sistemas de controle",
-      "Resposta Rápida: Acionamento e desligamento quase instantâneos",
-      "Versatilidade: Disponível para diferentes pressões e temperaturas",
-      "Durabilidade: Construção robusta para ambientes industriais"
+      "Construção Leve: Peso reduzido mantendo resistência",
+      "Design Eficiente: Perfil otimizado para desempenho",
+      "Versatilidade: Aplicável em diversos sistemas",
+      "Montagem Simples: Facilidade na instalação e manutenção"
     ]
   }
 ];
 
-// Product categories
-const categories = [
-  "Todos",
-  "Sensores e Atuadores",
-  "Controladores",
-  "Sistemas de Visão",
-  "Equipamentos de Segurança"
-];
+// Product categories extracted from the products
+const categories = ["Todos", ...Array.from(new Set(initialProducts.map(p => p.category)))];
 
 const ProductCard = ({ product, onView }: { product: any, onView: (product: any) => void }) => {
   return (
@@ -103,9 +124,10 @@ const ProductCard = ({ product, onView }: { product: any, onView: (product: any)
           src={product.image}
           alt={product.name}
           className="w-full h-full object-cover"
+          referrerPolicy="no-referrer"
           onError={(e) => {
             const target = e.target as HTMLImageElement;
-            target.src = "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3";
+            target.src = "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3";
           }}
         />
       </div>
@@ -151,9 +173,10 @@ const ProductDetailModal = ({ product, onClose }: { product: any, onClose: () =>
               src={product.image} 
               alt={product.name} 
               className="w-full h-full object-cover"
+              referrerPolicy="no-referrer"
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
-                target.src = "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3";
+                target.src = "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3";
               }}
             />
           </div>
@@ -200,9 +223,25 @@ const ProductDetailModal = ({ product, onClose }: { product: any, onClose: () =>
 };
 
 const Products = () => {
+  const [searchParams] = useSearchParams();
+  const categoryFromUrl = searchParams.get('categoria');
+  
   const [selectedCategory, setSelectedCategory] = useState("Todos");
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedProduct, setSelectedProduct] = useState<any>(null);
+
+  // Set initial category from URL if available
+  useEffect(() => {
+    if (categoryFromUrl) {
+      // Find the closest matching category
+      const matchingCategory = categories.find(cat => 
+        categoryFromUrl.toLowerCase().includes(cat.toLowerCase()) || 
+        cat.toLowerCase().includes(categoryFromUrl.toLowerCase())
+      ) || "Todos";
+      
+      setSelectedCategory(matchingCategory);
+    }
+  }, [categoryFromUrl]);
 
   // Filter products based on category and search term
   const filteredProducts = initialProducts.filter((product) => {

@@ -20,13 +20,14 @@ const CategoryCard = ({ title, image, description, link }: CategoryCardProps) =>
             const target = e.target as HTMLImageElement;
             target.src = "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3";
           }}
+          referrerPolicy="no-referrer"
         />
       </div>
       <div className="p-6">
         <h3 className="text-xl font-semibold mb-2">{title}</h3>
         <p className="text-gray-600 mb-4">{description}</p>
         <Link
-          to={link}
+          to={`/produtos?categoria=${encodeURIComponent(title)}`}
           className="text-tmv-blue font-medium hover:underline"
         >
           Ver produtos →
@@ -98,7 +99,7 @@ const ProductCategories = () => {
             title={category.title}
             image={category.image}
             description={category.description}
-            link={category.link}
+            link={`/produtos?categoria=${encodeURIComponent(category.title)}`}
           />
         ))}
       </div>
