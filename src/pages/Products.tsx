@@ -5,140 +5,126 @@ import { Search } from "lucide-react";
 import { toast } from "@/components/ui/use-toast";
 import { useSearchParams } from "react-router-dom";
 
-// Dados dos produtos organizados por categorias para evitar duplicações
-const productData = [
+// Use the same product data as in ProductCategories
+const initialProducts = [
   {
+    id: 1,
+    name: "Conector Pneumatico Engate Rapido",
+    category: "Sensores e Atuadores",
+    description: "Um conector pneumatico engate rapido é um componente usado em sistemas pneumáticos para conectar e desconectar rapidamente linhas de ar comprimido sem a necessidade de ferramentas. Esse tipo de conector facilita a manutenção, as mudanças de configuração e o gerenciamento de linhas pneumáticas, proporcionando uma conexão segura e eficaz.",
+    image: "https://www.jrgs.com.br/imagens/conector-pneumatico-engate-rapido/conector-pneumatico-engate-rapido.webp",
+    specs: [
+      "Instalação Rápida e Simples: Permite conexões rápidas e eficientes",
+      "Resistência à Corrosão: Altamente resistente à oxidação e corrosão",
+      "Versatilidade: Utilizável em ampla gama de temperaturas e condições",
+      "Facilidade de Uso: Conexões simplificadas sem ferramentas"
+    ]
+  },
+  {
+    id: 2,
+    name: "Conexao Instantanea Reta de Latao",
     category: "Conexões",
-    items: [
-      {
-        id: 1,
-        name: "Conector Pneumatico Engate Rapido",
-        description: "Um conector pneumatico engate rapido é um componente usado em sistemas pneumáticos para conectar e desconectar rapidamente linhas de ar comprimido sem a necessidade de ferramentas. Esse tipo de conector facilita a manutenção, as mudanças de configuração e o gerenciamento de linhas pneumáticas, proporcionando uma conexão segura e eficaz.",
-        image: "/lovable-uploads/062b0eb1-2ed9-42a6-81dc-50c31661d763.png",
-        specs: [
-          "Instalação Rápida e Simples: Permite conexões rápidas e eficientes",
-          "Resistência à Corrosão: Altamente resistente à oxidação e corrosão",
-          "Versatilidade: Utilizável em ampla gama de temperaturas e condições",
-          "Facilidade de Uso: Conexões simplificadas sem ferramentas"
-        ]
-      },
-      {
-        id: 2,
-        name: "Conexao Instantanea Reta de Latao",
-        description: "A conexao instantanea reta de latao é um tipo de conector rápido usado em sistemas pneumáticos e hidráulicos para unir tubos ou mangueiras de forma rápida e segura. Fabricada em latão, oferece durabilidade e resistência à corrosão.",
-        image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
-        specs: [
-          "Resistência à Corrosão: Altamente resistente à oxidação",
-          "Versatilidade: Utilizável em diversas temperaturas",
-          "Condutividade: Boa condutividade térmica e elétrica",
-          "Facilidade de Usinagem: Fácil de trabalhar em várias formas"
-        ]
-      },
-      {
-        id: 3,
-        name: "Conexao em Latao",
-        description: "A conexao em latao é um componente usado em sistemas pneumáticos e hidráulicos para conectar diferentes seções de tubulação ou mangueira. Fabricada em latão, oferece durabilidade excepcional.",
-        image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
-        specs: [
-          "Compatibilidade: Excelente para uso com diversos materiais",
-          "Durabilidade: Longa vida útil mesmo em condições adversas",
-          "Precisão: Fabricação com tolerâncias precisas",
-          "Versatilidade: Disponível em diversos formatos e tamanhos"
-        ]
-      },
-      {
-        id: 4,
-        name: "Conexões Instantâneas em Plástico",
-        description: "Conexões instantâneas em plástico são componentes utilizados para conectar rapidamente tubulações em sistemas pneumáticos, hidráulicos ou de água sem necessidade de ferramentas.",
-        image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
-        specs: [
-          "Material Durável: Fabricadas em plásticos resistentes",
-          "Instalação Fácil: Sistema de engate rápido sem ferramentas",
-          "Economia: Solução de custo-benefício para sistemas de tubulação",
-          "Versatilidade: Compatível com diferentes tipos de tubos"
-        ]
-      },
-      {
-        id: 5,
-        name: "Conexões Pneumáticas Metálicas",
-        description: "As conexões pneumáticas metálicas são componentes robustos usados em sistemas de ar comprimido para unir tubulações, mangueiras e equipamentos.",
-        image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
-        specs: [
-          "Alta Resistência: Suporta pressões elevadas",
-          "Durabilidade Superior: Material resistente para uso prolongado",
-          "Vedação Perfeita: Minimiza riscos de vazamentos",
-          "Compatibilidade: Para diversos sistemas industriais"
-        ]
-      }
+    description: "A conexao instantanea reta de latao é um tipo de conector rápido usado em sistemas pneumáticos e hidráulicos para unir tubos ou mangueiras de forma rápida e segura. Fabricada em latão, oferece durabilidade e resistência à corrosão.",
+    image: "https://www.jrgs.com.br/imagens/conexao-instantanea-reta-de-latao/conexao-instantanea-reta-de-latao.webp",
+    specs: [
+      "Resistência à Corrosão: Altamente resistente à oxidação",
+      "Versatilidade: Utilizável em diversas temperaturas",
+      "Condutividade: Boa condutividade térmica e elétrica",
+      "Facilidade de Usinagem: Fácil de trabalhar em várias formas"
     ]
   },
   {
+    id: 3,
+    name: "Conexao em Latao",
+    category: "Conexões",
+    description: "A conexao em latao é um componente usado em sistemas pneumáticos e hidráulicos para conectar diferentes seções de tubulação ou mangueira. Fabricada em latão, oferece durabilidade excepcional.",
+    image: "https://www.jrgs.com.br/imagens/conexao-em-latao/conexao-em-latao.webp",
+    specs: [
+      "Compatibilidade: Excelente para uso com diversos materiais",
+      "Durabilidade: Longa vida útil mesmo em condições adversas",
+      "Precisão: Fabricação com tolerâncias precisas",
+      "Versatilidade: Disponível em diversos formatos e tamanhos"
+    ]
+  },
+  {
+    id: 4,
+    name: "Conexões Instantâneas em Plástico",
+    category: "Conexões",
+    description: "Conexões instantâneas em plástico são componentes utilizados para conectar rapidamente tubulações em sistemas pneumáticos, hidráulicos ou de água sem necessidade de ferramentas.",
+    image: "https://www.jrgs.com.br/imagens/conexoes-instantaneas-em-plastico/conexoes-instantaneas-em-plastico.webp",
+    specs: [
+      "Material Durável: Fabricadas em plásticos resistentes",
+      "Instalação Fácil: Sistema de engate rápido sem ferramentas",
+      "Economia: Solução de custo-benefício para sistemas de tubulação",
+      "Versatilidade: Compatível com diferentes tipos de tubos"
+    ]
+  },
+  {
+    id: 5,
+    name: "Conexões Pneumáticas Metálicas",
+    category: "Conexões",
+    description: "As conexões pneumáticas metálicas são componentes robustos usados em sistemas de ar comprimido para unir tubulações, mangueiras e equipamentos.",
+    image: "https://www.jrgs.com.br/imagens/conexoes-pneumaticas-metalicas/conexoes-pneumaticas-metalicas.webp",
+    specs: [
+      "Alta Resistência: Suporta pressões elevadas",
+      "Durabilidade Superior: Material resistente para uso prolongado",
+      "Vedação Perfeita: Minimiza riscos de vazamentos",
+      "Compatibilidade: Para diversos sistemas industriais"
+    ]
+  },
+  {
+    id: 6,
+    name: "Atuador Elétrico",
     category: "Atuadores",
-    items: [
-      {
-        id: 6,
-        name: "Atuador Elétrico",
-        description: "Um atuador elétrico é um dispositivo mecânico usado para converter energia elétrica em movimento mecânico. Este tipo de atuador é amplamente utilizado em processos industriais automatizados.",
-        image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
-        specs: [
-          "Precisão: Controle exato de posicionamento",
-          "Eficiência Energética: Baixo consumo de energia",
-          "Controle Avançado: Integração facilitada com sistemas de controle",
-          "Manutenção Reduzida: Maior tempo entre intervenções"
-        ]
-      },
-      {
-        id: 7,
-        name: "Atuador Pneumático",
-        description: "Um atuador pneumático é um dispositivo utilizado para converter energia do ar comprimido em movimento mecânico. Estes atuadores são uma parte fundamental dos sistemas automatizados industriais.",
-        image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
-        specs: [
-          "Movimento Controlado: Precisão no posicionamento",
-          "Velocidade: Operação rápida em comparação com outros sistemas",
-          "Confiabilidade: Funcionamento consistente em ambientes industriais",
-          "Segurança: Operação segura em ambientes potencialmente explosivos"
-        ]
-      }
+    description: "Um atuador elétrico é um dispositivo mecânico usado para converter energia elétrica em movimento mecânico. Este tipo de atuador é amplamente utilizado em processos industriais automatizados.",
+    image: "https://www.jrgs.com.br/imagens/atuador-eletrico/atuador-eletrico.webp",
+    specs: [
+      "Precisão: Controle exato de posicionamento",
+      "Eficiência Energética: Baixo consumo de energia",
+      "Controle Avançado: Integração facilitada com sistemas de controle",
+      "Manutenção Reduzida: Maior tempo entre intervenções"
     ]
   },
   {
+    id: 7,
+    name: "Atuador Pneumático",
+    category: "Atuadores",
+    description: "Um atuador pneumático é um dispositivo utilizado para converter energia do ar comprimido em movimento mecânico. Estes atuadores são uma parte fundamental dos sistemas automatizados industriais.",
+    image: "https://www.jrgs.com.br/imagens/atuador-pneumatico/atuador-pneumatico.webp",
+    specs: [
+      "Movimento Controlado: Precisão no posicionamento",
+      "Velocidade: Operação rápida em comparação com outros sistemas",
+      "Confiabilidade: Funcionamento consistente em ambientes industriais",
+      "Segurança: Operação segura em ambientes potencialmente explosivos"
+    ]
+  },
+  {
+    id: 8,
+    name: "Cilindro Perfilado",
     category: "Cilindros",
-    items: [
-      {
-        id: 8,
-        name: "Cilindro Perfilado",
-        description: "O cilindro perfilado é um tipo de cilindro pneumático que se caracteriza por ter um corpo com perfil extrudado, geralmente em alumínio, oferecendo excelente relação peso-resistência.",
-        image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
-        specs: [
-          "Construção Leve: Peso reduzido mantendo resistência",
-          "Design Eficiente: Perfil otimizado para desempenho",
-          "Versatilidade: Aplicável em diversos sistemas",
-          "Montagem Simples: Facilidade na instalação e manutenção"
-        ]
-      }
+    description: "O cilindro perfilado é um tipo de cilindro pneumático que se caracteriza por ter um corpo com perfil extrudado, geralmente em alumínio, oferecendo excelente relação peso-resistência.",
+    image: "https://www.jrgs.com.br/imagens/cilindro-perfilado/cilindro-perfilado.webp",
+    specs: [
+      "Construção Leve: Peso reduzido mantendo resistência",
+      "Design Eficiente: Perfil otimizado para desempenho",
+      "Versatilidade: Aplicável em diversos sistemas",
+      "Montagem Simples: Facilidade na instalação e manutenção"
     ]
   }
 ];
 
-// Criar uma lista achatada de todos os produtos
-const initialProducts = productData.flatMap(category => category.items.map(item => ({
-  ...item,
-  category: category.category
-})));
-
 // Product categories extracted from the products
-const categories = ["Todos", ...Array.from(new Set(productData.map(p => p.category)))];
+const categories = ["Todos", ...Array.from(new Set(initialProducts.map(p => p.category)))];
 
 const ProductCard = ({ product, onView }: { product: any, onView: (product: any) => void }) => {
   return (
     <div className="bg-white rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all">
-      <div className="h-48 overflow-hidden" onClick={(e) => e.preventDefault()}>
+      <div className="h-48 overflow-hidden">
         <img
           src={product.image}
           alt={product.name}
           className="w-full h-full object-cover"
           referrerPolicy="no-referrer"
-          draggable="false"
           onError={(e) => {
             const target = e.target as HTMLImageElement;
             target.src = "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3";
@@ -188,7 +174,6 @@ const ProductDetailModal = ({ product, onClose }: { product: any, onClose: () =>
               alt={product.name} 
               className="w-full h-full object-cover"
               referrerPolicy="no-referrer"
-              draggable="false"
               onError={(e) => {
                 const target = e.target as HTMLImageElement;
                 target.src = "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3";
@@ -197,16 +182,7 @@ const ProductDetailModal = ({ product, onClose }: { product: any, onClose: () =>
           </div>
         </div>
         <div className="p-6">
-          <div className="flex items-center justify-between mb-4">
-            <span className="text-sm font-medium text-tmv-blue">{product.category}</span>
-            <img 
-              src="/lovable-uploads/062b0eb1-2ed9-42a6-81dc-50c31661d763.png" 
-              alt="TMV Comercial Ltda." 
-              className="h-8 object-contain"
-              draggable="false"
-              referrerPolicy="no-referrer"
-            />
-          </div>
+          <span className="text-sm font-medium text-tmv-blue mb-2 block">{product.category}</span>
           <h2 className="text-2xl font-bold mb-4">{product.name}</h2>
           <div className="mb-6">
             <h3 className="text-lg font-semibold mb-2">Descrição</h3>
@@ -278,14 +254,7 @@ const Products = () => {
   return (
     <Layout>
       <div className="bg-tmv-blue text-white py-16 md:py-20">
-        <div className="container mx-auto px-4 flex flex-col items-center">
-          <img 
-            src="/lovable-uploads/062b0eb1-2ed9-42a6-81dc-50c31661d763.png" 
-            alt="TMV Comercial Ltda." 
-            className="h-24 object-contain mb-6"
-            draggable="false"
-            referrerPolicy="no-referrer"
-          />
+        <div className="container mx-auto px-4">
           <h1 className="text-center mb-6">Nossos Produtos</h1>
           <p className="text-xl max-w-3xl mx-auto text-center">
             Descubra nossa linha completa de produtos para automação industrial
