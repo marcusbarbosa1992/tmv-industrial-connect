@@ -16,6 +16,10 @@ const CategoryCard = ({ title, image, description, link }: CategoryCardProps) =>
           src={image}
           alt={title}
           className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
+          onError={(e) => {
+            const target = e.target as HTMLImageElement;
+            target.src = "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3";
+          }}
         />
       </div>
       <div className="p-6">
@@ -35,28 +39,52 @@ const CategoryCard = ({ title, image, description, link }: CategoryCardProps) =>
 const ProductCategories = () => {
   const categories = [
     {
-      title: "Sensores e Atuadores",
-      image: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
-      description: "Detecte e controle variáveis do seu processo industrial com precisão e confiabilidade.",
-      link: "/produtos/sensores-atuadores"
+      title: "Conector Pneumatico Engate Rapido",
+      image: "https://www.jrgs.com.br/imagens/conector-pneumatico-engate-rapido/conector-pneumatico-engate-rapido.webp",
+      description: "Um conector pneumatico engate rapido é um componente usado em sistemas pneumáticos para conectar e desconectar rapidamente linhas de ar comprimido sem a necessidade de ferramentas.",
+      link: "https://www.jrgs.com.br/conector-pneumatico-engate-rapido"
     },
     {
-      title: "Controladores e PLCs",
-      image: "https://images.unsplash.com/photo-1531297484001-80022131f5a1?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
-      description: "Automatize e monitore seus processos com os melhores controladores do mercado.",
-      link: "/produtos/controladores"
+      title: "Conexao Instantanea Reta de Latao",
+      image: "https://www.jrgs.com.br/imagens/conexao-instantanea-reta-de-latao/conexao-instantanea-reta-de-latao.webp",
+      description: "A conexao instantanea reta de latao é um tipo de conector rápido usado em sistemas pneumáticos e hidráulicos para unir tubos ou mangueiras de forma rápida e segura. Fabricada em latão...",
+      link: "https://www.jrgs.com.br/conexao-instantanea-reta-de-latao"
     },
     {
-      title: "Sistemas de Visão",
-      image: "https://images.unsplash.com/photo-1485827404703-89b55fcc595e?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
-      description: "Inspecione e controle a qualidade dos seus produtos com sistemas de visão de alta precisão.",
-      link: "/produtos/sistemas-visao"
+      title: "Conexao em Latao",
+      image: "https://www.jrgs.com.br/imagens/conexao-em-latao/conexao-em-latao.webp",
+      description: "A conexao em latao é um componente usado em sistemas pneumáticos e hidráulicos para conectar diferentes seções de tubulação ou mangueira. Fabricada em latão...",
+      link: "https://www.jrgs.com.br/conexao-em-latao"
     },
     {
-      title: "Equipamentos de Segurança",
-      image: "https://images.unsplash.com/photo-1605810230434-7631ac76ec81?auto=format&fit=crop&q=80&w=800&ixlib=rb-4.0.3",
-      description: "Proteja sua operação e colaboradores com soluções completas de segurança industrial.",
-      link: "/produtos/equipamentos-seguranca"
+      title: "Conexões Instantâneas em Plástico",
+      image: "https://www.jrgs.com.br/imagens/conexoes-instantaneas-em-plastico/conexoes-instantaneas-em-plastico.webp",
+      description: "Conexões instantâneas em plástico são componentes utilizados para conectar rapidamente tubulações em sistemas pneumáticos, hidráulicos ou de água sem necessidade de ferramentas...",
+      link: "https://www.jrgs.com.br/conexoes-instantaneas-em-plastico"
+    },
+    {
+      title: "Conexões Pneumáticas Metálicas",
+      image: "https://www.jrgs.com.br/imagens/conexoes-pneumaticas-metalicas/conexoes-pneumaticas-metalicas.webp",
+      description: "As conexões pneumáticas metálicas são componentes robustos usados em sistemas de ar comprimido para unir tubulações, mangueiras e equipamentos...",
+      link: "https://www.jrgs.com.br/conexoes-pneumaticas-metalicas"
+    },
+     {
+      title: "Atuador Elétrico",
+      image: "https://www.jrgs.com.br/imagens/atuador-eletrico/atuador-eletrico.webp",
+      description: "Um atuador elétrico é um dispositivo mecânico usado para converter energia elétrica em movimento mecânico. Este tipo de atuador é amplamente utilizado...",
+      link: "https://www.jrgs.com.br/atuador-eletrico"
+    },
+    {
+      title: "Atuador Pneumático",
+      image: "https://www.jrgs.com.br/imagens/atuador-pneumatico/atuador-pneumatico.webp",
+      description: "Um atuador pneumático é um dispositivo utilizado para converter energia do ar comprimido em movimento mecânico. Estes atuadores são uma parte fundamental...",
+      link: "https://www.jrgs.com.br/atuador-pneumatico"
+    },
+    {
+      title: "Cilindro Perfilado",
+      image: "https://www.jrgs.com.br/imagens/cilindro-perfilado/cilindro-perfilado.webp",
+      description: "O cilindro perfilado é um tipo de cilindro pneumático que se caracteriza por ter um corpo com perfil extrudado, geralmente em alumínio...",
+      link: "https://www.jrgs.com.br/cilindro-perfilado"
     }
   ];
 
